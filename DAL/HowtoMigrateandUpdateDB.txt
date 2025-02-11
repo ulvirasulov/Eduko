@@ -1,0 +1,10 @@
+solution daxilinde yazilmalidir.
+
+update database ucun :  dotnet ef database update --project DAL --startup-project App
+
+migration ucun : dotnet ef migrations add MigrationName --project DAL --startup-project App
+
+connection string in appsetting.json:
+"ConnectionStrings": {
+    "Default" : "Host=localhost;Port=5432;Username=postgres;Password=ulvi456123;Database=DalgaTvDB"
+}
