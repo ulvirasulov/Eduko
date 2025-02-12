@@ -8,16 +8,13 @@ namespace App.Areas.Manage.Controllers;
 public class BlogController : Controller
 {
     private readonly IBlogService _blogService;
-    private readonly ILogger<App.Controllers.BlogController> _logger;
     private readonly IMapper _mapper;
 
     public BlogController(
         IBlogService blogService,
-        ILogger<App.Controllers.BlogController> logger,
         IMapper mapper)
     {
         _blogService = blogService;
-        _logger = logger;
         _mapper = mapper;
     }
     [HttpGet]
@@ -38,7 +35,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq yaradılarkən xəta baş verdi");
             ModelState.AddModelError("", ex.Message);
             return View(dto);
         }
@@ -56,7 +52,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq məlumatlarını gətirərkən xəta baş verdi. ID: {Id}", id);
             return RedirectToAction(nameof(Index));
         }
     }
@@ -72,7 +67,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq yenilənərkən xəta baş verdi. ID: {Id}", id);
             ModelState.AddModelError("", ex.Message);
             return View(dto);
         }
@@ -89,7 +83,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq silinərkən xəta baş verdi. ID: {Id}", id);
             return RedirectToAction(nameof(Index));
         }
     }

@@ -11,16 +11,13 @@ namespace App.Controllers;
 public class BlogController : Controller
 {
     private readonly IBlogService _blogService;
-    private readonly ILogger<BlogController> _logger;
     private readonly IMapper _mapper;
 
     public BlogController(
         IBlogService blogService,
-        ILogger<BlogController> logger,
         IMapper mapper)
     {
         _blogService = blogService;
-        _logger = logger;
         _mapper = mapper;
     }
 
@@ -33,7 +30,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloqları gətirərkən xəta baş verdi");
             return View(new List<GetBlogDTO>());
         }
     }
@@ -47,7 +43,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq detallarını gətirərkən xəta baş verdi. ID: {Id}", id);
             return RedirectToAction(nameof(Index));
         }
     }
@@ -70,7 +65,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq yaradılarkən xəta baş verdi");
             ModelState.AddModelError("", ex.Message);
             return View(dto);
         }
@@ -88,7 +82,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq məlumatlarını gətirərkən xəta baş verdi. ID: {Id}", id);
             return RedirectToAction(nameof(Index));
         }
     }
@@ -104,7 +97,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq yenilənərkən xəta baş verdi. ID: {Id}", id);
             ModelState.AddModelError("", ex.Message);
             return View(dto);
         }
@@ -121,7 +113,6 @@ public class BlogController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Bloq silinərkən xəta baş verdi. ID: {Id}", id);
             return RedirectToAction(nameof(Index));
         }
     }

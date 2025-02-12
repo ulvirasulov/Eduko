@@ -39,16 +39,16 @@ public class AuthController : Controller
             if (result.IsLockedOut)
             {
                 ModelState.AddModelError("",
-                    "Hesabınız müvəqqəti olaraq bloklanıb. Zəhmət olmasa bir az sonra yenidən cəhd edin");
+                    "biraz sonra cehd et");
                 return View(loginDto);
             }
 
-            ModelState.AddModelError("", "Email və ya şifrə yanlışdır");
+            ModelState.AddModelError("", "email veya sefre yanlisdir");
             return View(loginDto);
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError("", "Daxil olarkən xəta baş verdi. Zəhmət olmasa bir az sonra yenidən cəhd edin");
+            ModelState.AddModelError("", "biraz sonra yeniden cehd et");
             return View(loginDto);
         }
     }
@@ -70,7 +70,7 @@ public class AuthController : Controller
 
             if (registerDto.Password != registerDto.ConfirmPassword)
             {
-                ModelState.AddModelError("ConfirmPassword", "Şifrələr uyğun gəlmir");
+                ModelState.AddModelError("ConfirmPassword", "sifreler ustuste dusmur");
                 return View(registerDto);
             }
 
@@ -78,7 +78,7 @@ public class AuthController : Controller
 
             if (result.Succeeded)
             {
-                TempData["SuccessMessage"] = "Qeydiyyat uğurla tamamlandı. İndi daxil ola bilərsiniz.";
+                TempData["SuccessMessage"] = "qeydiyat tamamlandi";
                 return RedirectToAction(nameof(Login));
             }
 
@@ -97,7 +97,7 @@ public class AuthController : Controller
         catch (Exception ex)
         {
             ModelState.AddModelError("",
-                "Qeydiyyat zamanı xəta baş verdi. Zəhmət olmasa bir az sonra yenidən cəhd edin");
+                "biraz sonra cehd et");
             return View(registerDto);
         }
     }
@@ -118,18 +118,18 @@ public class AuthController : Controller
         {
             if (string.IsNullOrEmpty(email))
             {
-                ModelState.AddModelError("", "Email ünvanı daxil edin");
+                ModelState.AddModelError("", "email daxil et");
                 return View();
             }
 
             var userExists = await _userService.CheckEmailExistsAsync(email);
 
-            TempData["SuccessMessage"] = "Şifrə yeniləmə linki email ünvanınıza göndərildi";
+            TempData["SuccessMessage"] = "sifreni yenilemek ucun link gonderildi";
             return RedirectToAction(nameof(Login));
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError("", "Xəta baş verdi. Zəhmət olmasa bir az sonra yenidən cəhd edin");
+            ModelState.AddModelError("", "briaz sonra yeniden cehd et");
             return View();
         }
     }
